@@ -1,0 +1,6 @@
+@EndUserText.label: 'Service defintion for Travel Interface'
+define service ZSD_TRAVEL_ZUBMA {
+  expose ZC_TRAVEL_ZUB;
+  expose ZC_TRAVEL_FLIGHT_DET;
+  expose ZP_TRAVEL_ZUBATCH;
+}

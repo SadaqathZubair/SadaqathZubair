@@ -1,0 +1,126 @@
+managed implementation in class zbp_i_travel_zubma unique;
+//strict ( 2 );
+
+with draft;
+
+define behavior for ZI_TRAVEL_ZUBMA alias TravelDetails
+persistent table ztravel_zub_db
+
+draft table ztravel_dr_zubdb
+
+lock master total etag LastChangDat
+authorization master ( global, instance )
+etag master LocalLastChange
+{
+  field ( numbering : managed, readonly ) TravelUuid;
+  field ( readonly ) TravelId;
+
+  create;
+  update;
+  delete;
+
+  association _Flight { create; with draft; }
+  association _Attachment { create; with draft; }
+
+
+  draft action Edit;
+  draft action Resume;
+  draft action Activate;
+  draft action Discard;
+  draft determine action Prepare;
+
+
+  action ( features : instance, authorization : update ) SetStatus result [1] $self;
+
+  action ( features : instance ) CreateRecords result [1] $self;
+
+  validation ValidateAgencyID on save { field AgencyId; create; }
+
+  determination CalculateTravelKey on modify
+  { create; }
+
+  determination DetermineBookingStatus on save { field BookingFee; }
+
+  determination DetermineBookingStatusMod on modify { field BookingFee; }
+
+factory action CopyRecords[1];
+
+ static factory action CreateDefalutValuesRecord[1];
+
+  mapping for ztravel_zub_db
+    {
+      TravelUuid      = mykey;
+      TravelId        = travel_id;
+      AgencyId        = agency_id;
+      CustomerId      = customer_id;
+      BeginDate       = begin_date;
+      EndDate         = end_date;
+      BookingFee      = BOOKING_FEE;
+      TotalPrice      = total_price;
+      CurrencyCode    = currency_code;
+      Description     = description;
+      OverallStatus   = OVERALL_STATUS;
+      LastChangDat    = lastchangdat;
+      LocalLastChange = locallastchange;
+    }
+
+}
+
+define behavior for ZI_TRAVEL_FLIGHT_DET alias FlightDetails
+persistent table ztravl_flght_det
+draft table ztravl_dr_flght
+lock dependent by _TravelData
+authorization dependent by _TravelData
+
+{
+  update;
+  delete;
+  association _TravelData;
+
+  field ( readonly ) TravelUuid;
+
+  field ( readonly ) TravelId;
+
+  determination CalculateTravelKey on modify
+  { create; }
+
+  mapping for ztravl_flght_det
+    {
+      TravelUuid   = mykey;
+      AirportId    = airport_id;
+      BookingId    = booking_id;
+      CarrierId    = carrier_id;
+      City         = city;
+      Country      = country;
+      CurrencyCode = currency_code;
+      FlightPrice  = flight_price;
+      Name         = name;
+      PlaneTypeId  = plane_type_id;
+      TravelId     = travel_id;
+    }
+
+}
+
+define behavior for ZI_TRAVEL_ZUBATCH alias Attachment
+persistent table ztravel_zub_atch
+draft table ztravl_dr_attch
+lock dependent by _TravelData
+authorization dependent by _TravelData
+
+{
+  update;
+  delete;
+  association _TravelData;
+
+  field ( readonly ) TravelUuid;
+
+  mapping for ztravel_zub_atch
+    {
+      TravelUuid = travel_uuid;
+      Comments   = comments;
+      Attachment = attachment;
+      Filename   = filename;
+      Mimetype   = mimetype;
+    }
+
+}

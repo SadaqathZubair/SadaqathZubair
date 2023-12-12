@@ -1,0 +1,45 @@
+projection;
+//strict ( 2 ); //Uncomment this line in order to enable strict mode 2. The strict mode has two variants (strict(1), strict(2)) and is prerequisite to be future proof regarding syntax and to be able to release your BO.
+use draft;
+
+define behavior for ZC_TRAVEL_ZUB //alias <alias_name>
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Resume;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+
+  use action SetStatus;
+
+  use action CreateRecords;
+
+  use action CopyRecords;
+
+  use action CreateDefalutValuesRecord;
+
+
+  use association _Flight { create; with draft; }
+  use association _Attachment { create; with draft; }
+
+}
+
+define behavior for ZC_TRAVEL_FLIGHT_DET //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _TravelData;
+}
+
+define behavior for ZP_TRAVEL_ZUBATCH //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _TravelData;
+}

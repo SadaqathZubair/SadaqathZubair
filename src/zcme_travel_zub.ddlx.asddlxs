@@ -1,0 +1,87 @@
+@Metadata.layer: #PARTNER
+
+@UI: {
+    headerInfo: {
+        typeName: 'TRAVELDETAILS',
+        typeNamePlural: 'TRAVELDETAILS',
+        title: {
+            type: #STANDARD,
+            label: 'TRAVELDETAILS'
+        },
+        description: {
+            type: #STANDARD,
+            label: 'TRAVELDETAILS'  } } }
+
+annotate view ZC_TRAVEL_ZUB with
+{
+
+  @UI.facet: [{ id: 'TravelDetails',
+                label: 'TravelDetails',
+                type: #IDENTIFICATION_REFERENCE,
+                purpose: #STANDARD,
+                position: 10 },
+
+             {  id: 'TravellerFlightDetail',
+                label: 'TravellerFlightDetail',
+                type: #LINEITEM_REFERENCE,
+                purpose: #STANDARD,
+                position: 20,
+                targetElement: '_Flight'},
+
+              { id: 'AttachmentDetails',
+                label: 'AttachmentDetails',
+                type: #LINEITEM_REFERENCE,
+                purpose: #STANDARD,
+                position: 30,
+                targetElement: '_Attachment'} ]
+
+  @UI.lineItem: [{ position: 5 }]
+  @UI.identification: [ { position: 5 } ]
+  @UI.hidden: true
+  TravelUuid;
+  @UI.lineItem: [{ position: 10, type: #FOR_ACTION, dataAction: 'CreateRecords', label: 'Create Records' },
+ { type: #FOR_ACTION, dataAction: 'CopyRecords', label: 'Copy Records' }, 
+ { type: #FOR_ACTION, dataAction: 'CreateDefalutValuesRecord', label: 'Create InsRecords' } ]
+  @UI.identification: [ { position: 10, label: 'Travel ID [1,...,99999999]' } ]
+  @UI.selectionField: [{ position: 10 }]
+  TravelId;
+  @UI.lineItem: [{ position: 20 }]
+  @UI.identification: [{ position: 20 }]
+  @UI.selectionField: [{position: 20 }]
+  AgencyId;
+  @UI.lineItem: [{ position: 30 }]
+  @UI.identification: [{ position: 30 }]
+  CustomerId;
+  @UI.lineItem: [{ position: 40 }]
+  @UI.identification: [{ position: 40 }]
+  BeginDate;
+  @UI.lineItem: [{ position: 50 }]
+  @UI.identification: [{ position: 50 }]
+  EndDate;
+  @UI.lineItem: [{ position: 60 }]
+  @UI.identification: [{ position: 60 }]
+  BookingFee;
+  @UI.lineItem: [{ position: 70 }]
+  @UI.identification: [{ position: 70 }]
+  TotalPrice;
+  @UI.lineItem: [{ position: 75 }]
+  @UI.identification: [{ position: 75 }]
+  BonusDiscount;
+  @UI.lineItem: [{ position: 80 }]
+  @UI.identification: [{ position: 80 }]
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'I_Currency', element: 'Currency' }}]
+  CurrencyCode;
+  @UI.lineItem: [{ position: 90 }]
+  @UI.identification: [{ position: 90 }]
+  Description;
+  @UI.lineItem: [{ position: 100, type: #FOR_ACTION, dataAction: 'SetStatus', label: 'Set Status' } ]
+  @UI.identification: [{ position: 100  }]
+  OverallStatus;
+  @UI.lineItem: [{ position: 110 }]
+  @UI.identification: [{ position: 110 }]
+  LastChangDat;
+  @UI.lineItem: [{ position: 120 }]
+  @UI.identification: [{ position: 120 }]
+  LocalLastChange;
+
+}

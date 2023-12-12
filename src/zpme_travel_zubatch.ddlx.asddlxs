@@ -1,0 +1,31 @@
+@Metadata.layer: #PARTNER
+annotate view ZP_TRAVEL_ZUBATCH with
+{
+
+  @UI.facet: [{ id: 'AttachmentDetails',
+                type: #IDENTIFICATION_REFERENCE,
+                purpose: #STANDARD,
+                position: 30,
+                label: 'AttachmentDetails'  }]
+                
+  @UI.lineItem: [{ position: 10 }]
+  @UI.identification: [{ position: 10 }]
+  TravelUuid;
+  @UI.lineItem: [{ position: 20 }]
+  @UI.identification: [{ position: 20 }]
+  Comments;
+  @UI.lineItem: [{ position: 30 }]
+  @UI.identification: [{ position: 30 }]
+  Attachment;
+  @UI.lineItem: [{ position: 40 }]
+  @UI.identification: [{ position: 40 }]
+  Mimetype;
+  @UI.lineItem: [{ position: 50 }]
+  @UI.identification: [{ position: 50 }]
+  Filename;
+ // @UI.lineItem: [{ position: 60 }]
+ // @UI.identification: [{ position: 60 }]
+  /* Associations */
+//  _Attachement;
+
+}

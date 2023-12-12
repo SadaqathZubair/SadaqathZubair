@@ -1,0 +1,5 @@
+CLASS zbp_i_travel_zubatch DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_travel_zubatch.
+ENDCLASS.
+
+CLASS zbp_i_travel_zubatch IMPLEMENTATION.
+ENDCLASS.
